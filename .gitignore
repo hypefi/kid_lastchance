@@ -1,0 +1,10 @@
+*.sublime-workspace
+*settings.json
+README-private.md
+
+npm-debug.log
+node_modules
+
+.DS_Store
+/**/.DS_Store
+.demeteorized/
