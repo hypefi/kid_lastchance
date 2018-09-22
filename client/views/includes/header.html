@@ -11,7 +11,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">We Work Meteor</a>
+                    <a class="navbar-brand" href="/">Khidma خدمة</a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -29,9 +29,27 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         {{#if currentUser}}
-                        	{{>headerUserMenu}}
+                            {{>headerUserMenu}}
                         {{else}}
-                            <li class="{{isActiveRoute regex='signIn'}}"><a href="{{pathFor 'signIn'}}">Log In</a></li>
+                            <li class="{{isActiveRoute regex='signIn'}}">
+                                <a class="link" href="{{pathFor 'signIn'}}">Log In
+                                     <style>
+                                a.link
+                                {
+                                color:#008b45;
+                                }
+
+                                a.link:hover
+                                {
+                                color:green;
+                                }
+                            </style>
+                            </a>
+                           
+
+
+
+                        </li>
                             <li class="{{isActiveRoute regex='signUp'}}"><a href="{{pathFor 'signUp'}}">Sign Up</a></li>
                         {{/if}}
                     </ul>
@@ -45,8 +63,8 @@
 <template name="headerUserMenu">
     <li id="user-drop-down" class="dropdown">
         <a class="dropdown-toggle box-user-option" data-toggle="dropdown" href="#">
-			{{> avatar user=currentUser size="small"}}{{currentUserDisplayName}} <span class="caret"></span>
-		</a>
+            {{> avatar user=currentUser size="small"}}{{currentUserDisplayName}} <span class="caret"></span>
+        </a>
         <ul class="dropdown-menu" role="menu">
             <li>
                 <a href="{{pathFor 'myJobs'}}"><i class="fa fa-building fa-fw"></i> My Posted Jobs</a>
