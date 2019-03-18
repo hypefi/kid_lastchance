@@ -1,6 +1,7 @@
 // API must be configured and built after startup!
 Meteor.startup(function() {
 
+
   // Global configuration
   var Api = new Restivus();
 

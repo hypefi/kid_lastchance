@@ -11,7 +11,7 @@ Router.configure({
     },
     progressSpinner: false,
     progressDelay: 250,
-    title: "Khidma - Job board and developer listing just for Arab and wide Muslim World"
+    title: "Khidma - Job board and developer listing just for Arab speakers and wide Muslim World"
 });
 
 
