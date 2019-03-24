@@ -14,18 +14,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nate-strauser/wework.git"
+    "url": "git+https://github.com/hypefi/wework.git"
   },
-  "author": "Nathan Strauser",
+  "author": "Anas B",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nate-strauser/wework/issues"
   },
-  "homepage": "https://github.com/nate-strauser/wework#readme",
+  "homepage": "https://github.com/hypefi/wework#readme",
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^0.8.7",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.16",
     "prerender-node": "^3.2.1"
   }
 }
