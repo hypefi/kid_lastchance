@@ -18,15 +18,15 @@
       {{!--
       <input type="checkbox" id="availableForHire" /> --}}
     </div>
-    <div class="row">
-      {{#each profiles}}
-        {{>profileSmall}}
-      {{else}}
-        {{#if queryActive}}
-          Sorry no matching profiles found.
-        {{/if}}
-      {{/each}}
-    </div>
+              <div class="row">
+                {{#each profiles}}
+                  {{>profileSmall}}
+                {{else}}
+                  {{#if queryActive}}
+                    Sorry no matching profiles found.
+                  {{/if}}
+                {{/each}}
+              </div>
     <div class="text-center">
         {{> infiniteScroll }}
     </div>

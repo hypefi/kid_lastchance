@@ -74,7 +74,7 @@ Jobs.attachSchema(
     description: {
       type: String,
       label: "Job Description",
-      max: 20000,
+      max: 100000,
       autoform: {
         afFieldInput: SUMMERNOTE_OPTIONS
       }
@@ -144,9 +144,21 @@ Jobs.attachSchema(
   })
 );
 
+if (Meteor.isServer) {
+  Jobs._ensureIndex({
+    "company": "text",
+    "description": "text",
+    "location": "text",
+    "title": "text",
+    "userName": "text"
+  });
+}
+
 Jobs.helpers({
   path: function() {
-    return 'jobs/' + this._id + '/' + this.slug();
+   // return 'jobs/' + this.__originalId + '/' + this.slug();
+   return 'jobs/' + this._id + '/' + this.slug();
+   //return 'jobs/' + this._id;
   },
   slug: function() {
     return getSlug(this.title);
@@ -156,6 +168,9 @@ Jobs.helpers({
   },
   featuredAllowed: function() {
     return this.status === "pending" || this.status === "active";
+  },
+  displayName: function() {
+    return this.name || this.userName;
   }
 });
 
@@ -164,11 +179,128 @@ Jobs.allow({
     return userId && doc && userId === doc.userId;
   },
   update: function(userId, doc, fieldNames, modifier) {
-    return Roles.userIsInRole(userId, ['admin']) ||
+  
+  return Roles.userIsInRole(userId, ['admin']) ||
       (!_.contains(fieldNames, 'htmlDescription') && !_.contains(fieldNames, 'status') && !_.contains(fieldNames, 'featuredThrough') && !_.contains(fieldNames, 'featuredChargeHistory') && /*doc.status === "pending" &&*/ userId && doc && userId === doc.userId);
+
+  //  return Roles.userIsInRole(userId, ['admin']) || (!_.contains(fieldNames, 'randomSorter') && !_.contains(fieldNames, 'htmlDescription') && !_.contains(fieldNames, 'status') && userId && doc && userId === doc.userId);
+  //return Roles.userIsInRole(userId, ['admin']) || (!_.contains(fieldNames, 'htmlDescription') && !_.contains(fieldNames, 'status') && !_.contains(fieldNames, 'featuredThrough') && !_.contains(fieldNames, 'featuredChargeHistory') && doc.status === "pending" &&*/// userId && doc && userId === doc.userId);
+
   },
   remove: function(userId, doc) {
-    return false;
+    //return Roles.userIsInRole(userId, ['admin']) || (userId && doc && userId === doc.userId);
+    return false;  
   },
   fetch: ['userId', 'status']
 });
+
+/*Profiles.helpers({
+  displayName: function() {
+    return this.name || this.userName;
+  },
+  path: function() {
+    return 'profiles/' + this._id + '/' + this.slug();
+  },
+  slug: function() {
+    return getSlug(this.displayName() + ' ' + this.title);
+  }
+});*/
+
+//original
+/*Jobs.allow({    
+  insert: function(userId, doc) {
+    return userId && doc && userId === doc.userId;
+  },
+  update: function(userId, doc, fieldNames, modifier) {
+    return Roles.userIsInRole(userId, ['admin']) ||
+//      (!_.contains(fieldNames, 'htmlDescription') && !_.contains(fieldNames, 'status') && !_.contains(fieldNames, 'featuredThrough') && !_.contains(fieldNames, 'featuredChargeHistory') && /*doc.status === "pending" &&*/// userId && doc && userId === doc.userId);
+// },
+  
+/*  remove: function(userId, doc) {
+    return false;
+  },
+  fetch: ['userId', 'status']
+}); */
+
+
+/*
+if (Meteor.isServer) {
+  Jobs._ensureIndex({
+    "userName": "text",
+    "name": "text",
+    "title": "text",
+    "description": "text",
+    "location": "text"
+  });
+}
+*/
+//for easy search 
+//////////
+
+/*
+jobsIndex = new EasySearch.Index({
+  collection: Jobs,
+  fields: ['Description'],
+  engine: new EasySearch.MongoDB()
+})
+
+
+
+*/
+
+JobsIndex = new EasySearch.Index({
+  engine: new EasySearch.MongoDB({
+    sort: function() {
+      return { createdAt: -1 };
+    },
+ /*   selector: function(searchObject, options, aggregation) {
+      let selector = this.defaultConfiguration().selector(searchObject, options, aggregation),
+      categoryFilter = options.search.props.categoryFilter;
+
+      if(_.isString(categoryFilter) && !_.isEmpty(categoryFilter)) {
+        selector.category = categoryFilter;
+      }
+
+      return selector;
+    } */
+  }), 
+  collection: Jobs,
+  fields: ['description','title','location','company'],
+  defaultSearchOptions: {
+    limit: 10
+  },
+  permission: () => {
+    return true;
+  }
+});
+
+
+
+/*
+
+JobsIndex = new EasySearch.Index({
+      engine: new EasySearch.MongoDB({
+            sort: function(){
+              return { createdAt: -1 };
+            },
+            selector: function(searchObject, options, aggregation){
+            let selector = this.defaultConfiguration().selector(searchObject, options, aggregation),
+            categoryFilter = options.search.props.categoryFilter;
+
+            if(_.isString(categoryFilter) && !_.isEmpty(categoryFilter)){
+              selector.category = categoryFilter;
+              }
+              return selector;
+            
+               }
+                 }),
+            collection: Jobs,
+            fields: ['Job Title','Job Description'],
+            defaultSearchOptions: {
+            limit:10
+               },
+
+              permission: () => {
+               return true;
+              }
+}); */

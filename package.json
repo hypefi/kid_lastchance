@@ -26,8 +26,10 @@
     "@babel/runtime": "^7.1.5",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^0.8.7",
+    "googleapis": "^39.1.0",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.16",
-    "prerender-node": "^3.2.1"
+    "prerender-node": "^3.2.1",
+    "tough-cookie": "^3.0.1"
   }
 }

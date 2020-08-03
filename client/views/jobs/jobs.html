@@ -1,8 +1,29 @@
 <template name="jobs">
-	{{#each jobs}}
-		{{>jobSmall}}
-	{{/each}}
-	<div class="text-center">
-		{{> infiniteScroll }}
-	</div>
+  <section id="jobs">
+
+    
+<body>
+Search :
+  {{> EasySearch.Input index=index}}
+</body>
+
+
+<div>   
+&nbsp;
+&nbsp;
+</div>
+        
+
+  <div>
+    {{#EasySearch.Each index=index}}
+      <div class="row"> {{>jobSmall}} </div>
+    {{/EasySearch.Each}}
+  </div>
+
+  {{> EasySearch.LoadMore index=index}}
+
+  {{#EasySearch.IfNoResults index=index}}
+    <div class="no-results">No results found!</div>
+  {{/EasySearch.IfNoResults}} 
+  </section>
 </template>

@@ -1,0 +1,30 @@
+{
+  "public": {
+    "Stripe": {
+      "pubKey": "pk_test_wyUUwoixbKpLomm5Wrj37Lz7"
+    },
+    "uploadcare": {
+      "publickey": "Upload Care Public Key"
+    },
+    
+    "astronomer": {
+      "appId": "Astronomer.io App Id"
+    }
+  },
+  "kadira": {
+    "appId": "Kadira App ID",
+    "appSecret": "Kadira App Secret"
+  },
+  "Stripe": {
+    "secretKey": "sk_test_cmLlHFHB91ywBpHETw2nnpcx"
+  },
+
+  "smtp": {
+    "isSecure": true,
+    "userName": "hypefibusiness",
+    "password": "H314159125127gR1S3q",
+    "host": "smtp.gmail.com",
+    "port": 465
+  }
+
+}

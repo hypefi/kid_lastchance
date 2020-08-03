@@ -32,7 +32,34 @@ Meteor.startup(function() {
       };
     }
   });
+//added for jobx 
+    Api.addRoute('job', {
+    get: function() {
+      return {
+        status: "success",
+        data: Jobs.find({
+          createdAt: {
+            $gte: daysUntilExpiration()
+          },
+          status: "active"
+        }, {
+          sort: {
+            createdAt: -1
+          },
+          fields: {
+            userId: false,
+            userName: false
+          },
+          transform: function(doc) {
+            doc.siteUrl = Meteor.absoluteUrl("jobs/" + doc.__originalId + "/" + getSlug(doc.title));
+            return doc;
+          }
+        }).fetch()
+      };
+    }
+  });
 
+///end added 
   Api.addRoute('featuredJobs', {
     get: function() {
       return {

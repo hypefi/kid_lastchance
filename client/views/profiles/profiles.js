@@ -19,9 +19,11 @@ Template.profiles.helpers({
     if(query && query.text)
       options.sort = {"score":-1}
 
+    console.log(Profiles.find({}, options));
     return Profiles.find({}, options);
   },
   "queryActive": function() {
+        console.log( !_.isEqual({}, Template.instance().query.get()));
     return !_.isEqual({}, Template.instance().query.get());
   }
 })

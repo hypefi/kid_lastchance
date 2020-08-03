@@ -11,9 +11,8 @@ Router.configure({
     },
     progressSpinner: false,
     progressDelay: 250,
-    title: "Khidma - Job board and developer listing just for Arab speakers and wide Muslim World"
+    title: "Khidma - Job board and developer listing just for Arab speakers, MENA workers, SEA and beyond"
 });
-
 
 Router.map(function() {
 
@@ -84,25 +83,34 @@ Router.map(function() {
         }
     });
 
-    this.route('job', {
-        path: '/jobs/:_id/:slug?',
+    this.route('job', {   //__originalId
+        path: '/jobs/:__originalId/:slug?',
+ //     path: '/jobs/:_id',
         title: function() {
             if (this.data())
                 return "Khidma - " + this.data().title;
         },
         data: function() {
+            console.log(this.params.__originalId);
+            console.log(this.params);
+         //  console.log(this.params.query);
+         //  console.log(this.params.hash);
             return Jobs.findOne({
-                _id: this.params._id
+                _id: this.params.__originalId,
             });
         },
         waitOn: function() {
-            return subs.subscribe("job", this.params._id);
+            return subs.subscribe("job", this.params.__originalId);
         },
         onBeforeAction: function() {
             var expectedSlug = this.data().slug();
+            console.log(this.params.slug); //undefined
+            console.log(expectedSlug);
+            console.log(this.params.slug !== expectedSlug);
+            console.log(this.params);
             if (this.params.slug !== expectedSlug) {
                 this.redirect("job", {
-                    _id: this.params._id,
+                    __originalId: this.params.__originalId,
                     slug: expectedSlug
                 });
             } else {
@@ -111,6 +119,82 @@ Router.map(function() {
         }
     });
 
+    this.route('jobhome', {   //__originalId
+        path: '/jobs/:_id/:slug?',
+ //     path: '/jobs/:_id',
+        title: function() {
+            if (this.data())
+                return "Khidma - " + this.data().title;
+        },
+        data: function() {
+            console.log(this.params._id);
+         //  console.log(this.params.query);
+         //  console.log(this.params.hash);
+            return Jobs.findOne({
+                _id: this.params._id,
+            });
+        },
+        waitOn: function() {
+            return subs.subscribe("jobx", this.params._id);
+        },
+        onBeforeAction: function() {
+            var expectedSlug = this.data().slug();
+            console.log(this.params.slug); //undefined
+            console.log(expectedSlug);
+            console.log(this.params.slug !== expectedSlug);
+            console.log(this.params);
+            if (this.params.slug !== expectedSlug) {
+                this.redirect("jobhome", {
+                    _id: this.params._id,
+                    slug: expectedSlug
+                });
+            } else {
+                this.next();
+            }
+        }
+    });
+/*
+    this.route('jobx', {   //__originalId
+
+        path: '/jobx/:__originalId/:slug?',
+    //    name: 'jobx',
+      //  template: 'jobx',
+      //  path: '/jobs/:__originalId/:slug?',
+ //     path: '/jobs/:_id',
+        title: function() {
+            if (this.data())
+                return "Khidma - " + this.data().title;
+        },
+        data: function() {
+          //  console.log(this.params.__originalId);
+         //   console.log(this.params.query);
+          console.log(this.data);
+            return Jobs.findOne({
+                _id: this.params.__originalId,
+
+            });
+        },
+        waitOn: function() {
+            return subs.subscribe("jobx", this.params.__originalId);
+        },
+        onBeforeAction: function() {
+            var expectedSlug = this.data().slug();
+            console.log(expectedSlug);
+
+            if (this.params.slug !== expectedSlug) {
+
+                this.redirect("jobx", {
+                    _id: this.params.__originalId,
+                    slug: expectedSlug
+                });
+
+            } else {
+                this.next();
+            }
+        }
+    });
+
+*/
     this.route('jobNew', {
         path: '/job',
         title: "Khidma - Post a Job"
@@ -133,7 +217,7 @@ Router.map(function() {
 
     this.route('profiles', {
         path: '/profiles',
-        title: "Khidma - All Developers",
+        title: "Khidma - All Workers",
         subscriptions: function() {
             return subs.subscribe('developerUsers');
         }
@@ -155,6 +239,10 @@ Router.map(function() {
         },
         onBeforeAction: function() {
             var expectedSlug = this.data().slug();
+            console.log(this.params.slug); //undefined
+            console.log(expectedSlug);
+            console.log(this.params.slug !== expectedSlug);
+            console.log(this.params);
             if (this.params.slug !== expectedSlug) {
                 this.redirect("profile", {
                     _id: this.params._id,
@@ -168,7 +256,7 @@ Router.map(function() {
 
     this.route('profileNew', {
         path: '/profile',
-        title: "Khidma - Create Developer Profile",
+        title: "Khidma - Create Worker Profile",
         onBeforeAction: function() {
             if (Meteor.user().isDeveloper) {
                 Router.go('profile', Profiles.findOne({
@@ -182,7 +270,7 @@ Router.map(function() {
 
     this.route('profileEdit', {
         path: '/profiles/:_id/:slug/edit',
-        title: "Khidma - Edit My Developer Profile",
+        title: "Khidma - Edit My Worker Profile",
         data: function() {
             return {
                 profile: Profiles.findOne({
@@ -195,6 +283,8 @@ Router.map(function() {
         }
     });
 
+
+    
     //legacy url redirects
     this.route('experts', function() {
         this.redirect("profiles");

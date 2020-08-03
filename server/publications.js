@@ -183,6 +183,15 @@ Meteor.publish("job", function (jobId) {
     })
   ];
 });
+//added
+Meteor.publish("jobx", function (jobId) {
+  check(arguments, [Match.Any]);
+  return [
+    Jobs.find({
+      _id: jobId
+    })
+  ];
+});
 
 Meteor.publishComposite('profile', function (profileId) {
   return {
