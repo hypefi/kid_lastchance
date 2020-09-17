@@ -46,34 +46,7 @@ showmore: function() {
 renderTmpl: () => Template.renderTemplate
 });
 
-///added
-Template.jobx.helpers({
-inputAttributes: function() {
-  return {'class': 'easy-search-input', 'placeholder': 'Start searching'};
-},
-jobs: function(){
-  return Jobs.find({}, { sort: {         
-    featuredThrough: -1,
-    createdAt: -1
-  }});
-},
-selectedName: function(){
-//var job = JobsIndex.config.mongoCollection.findOne({ __originalId: Session.get("selectedJob")});
-var jobx = JobsIndex.config.mongoCollection.findOne( doc.__originalId);
-console.log(jobx && jobx.title);
-return jobx && jobx.title;  
-},
-index: function(){
-  return JobsIndex;
-},
-resultCount: function(){
-  return JobsIndex.getCompomentdict().get('count');
-},
-showmore: function() {
-  return false;
-},
-renderTmpl: () => Template.renderTemplate
-});
+
 
 // On Client
 Template.jobs.helpers({

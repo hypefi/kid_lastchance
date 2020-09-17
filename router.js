@@ -108,16 +108,19 @@ Router.map(function() {
             console.log(expectedSlug);
             console.log(this.params.slug !== expectedSlug);
             console.log(this.params);
+            console.log(history.state);
             if (this.params.slug !== expectedSlug) {
+                console.log("redirect!!!");
                 this.redirect("job", {
                     __originalId: this.params.__originalId,
                     slug: expectedSlug
-                });
+                }, {replaceState: true} );
             } else {
+                console.log("next!!!");
                 this.next();
             }
         }
-    });
+    } );
 
     this.route('jobhome', {   //__originalId
         path: '/jobs/:_id/:slug?',
