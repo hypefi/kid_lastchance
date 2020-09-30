@@ -5,7 +5,7 @@ AutoForm.addHooks(['jobNew', 'jobEdit'], {
         console.log("Insert Error:", error);
       } else {
         analytics.track("Job Created");
-        Router.go('job', { _id: result });
+        Router.go('jobs', { _id: result });
       }
     },
     update: function(error, result) {
