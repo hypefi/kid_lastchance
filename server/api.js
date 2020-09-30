@@ -1,9 +1,6 @@
 // API must be configured and built after startup!
 Meteor.startup(function() {
 
-    
-  
-
   // Global configuration
   var Api = new Restivus();
 
@@ -111,6 +108,9 @@ Meteor.startup(function() {
       };
     }
   });
+  
+  prerenderio.set("prerenderServiceUrl", "http://localhost:1337/");
+  prerenderio.set("prerenderToken", "R2uSrTaacRZ9w4tVBThd");
 
   if (Meteor.isClient) {
         return SEO.config({
@@ -123,27 +123,7 @@ Meteor.startup(function() {
            }
         });
 
-  SeoCollection.update(
-    {
-        route_name: 'jobs'
-    },
-    {
-        $set: {
-            route_name: 'jobs',
-            title: 'find remote arabc speaking jobs',
-            meta: {
-                'description': 'remote arabic job listing - job board to find your next opportunuity abroad - work from home - arabic speking professionals'
-            },
-            og: {
-                'title': 'Job list - Khidma - find remote arabc speaking jobs',
-                'image': ''
-            }
-        }
-    },
-    {
-        upsert: true
-    }
-    );
+
 
 
  }});

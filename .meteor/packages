@@ -83,3 +83,5 @@ easy:search
 easysearch:elasticsearch@=2.1.0
 easysearch:autosuggest@=2.1.6
 cscottnet:googleapis
+lookback:seo
+dfischer:prerenderio@=1.0.9
