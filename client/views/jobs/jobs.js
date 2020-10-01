@@ -21,7 +21,7 @@ inputAttributes: function() {
   return {'class': 'easy-search-input', 'placeholder': 'Start searching'};
 },
 jobs: function(){
-  return Jobs.find({}, { sort: {         
+  return Jobs.find({ status: "active" }, { sort: {         
     featuredThrough: -1,
     createdAt: -1
   }});

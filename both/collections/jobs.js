@@ -250,10 +250,22 @@ jobsIndex = new EasySearch.Index({
 
 JobsIndex = new EasySearch.Index({
   engine: new EasySearch.MongoDB({
-    sort: function() {
+    sort: function () {
       return { createdAt: -1 };
     },
- /*   selector: function(searchObject, options, aggregation) {
+    selector: function (searchObject, options, aggregation) {
+      // selector contains the default mongo selector that Easy Search would use
+      let selector = this.defaultConfiguration().selector(
+        searchObject,
+        options,
+        aggregation
+      );
+
+      // modify the selector to only match documents where region equals "New York"
+      selector.status = "active";
+      return selector;
+    },
+    /*   selector: function(searchObject, options, aggregation) {
       let selector = this.defaultConfiguration().selector(searchObject, options, aggregation),
       categoryFilter = options.search.props.categoryFilter;
 
@@ -263,15 +275,15 @@ JobsIndex = new EasySearch.Index({
 
       return selector;
     } */
-  }), 
+  }),
   collection: Jobs,
-  fields: ['description','title','location','company'],
+  fields: ["description", "title", "location", "company"],
   defaultSearchOptions: {
-    limit: 10
+    limit: 30,
   },
   permission: () => {
     return true;
-  }
+  },
 });
 
 
