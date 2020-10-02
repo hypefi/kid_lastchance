@@ -1,12 +1,50 @@
 <template name="jobs">
   <section id="jobs">
 
-    
-<body>
+    <style>
+      .grid-container {
+       display: grid;
+       grid-template-columns: auto auto auto auto;
+        }
+
+    </style>
+ <div class="grid-container">
+  <div class="grid-item">
+
+<body >
 Search :
   {{> EasySearch.Input index=index}}
 </body>
+</div>
 
+
+<div class="grid-item">
+  <p style="display: inline-block"> By country : </p>
+<select style="display: inline-block" class="Country">
+  <option value=""> 🌍 All</option>
+  <option value="Morocco">🇲🇦 Morocco</option>
+  <option value="Algeria">🇩🇿 Algeria</option>
+  <option value="Tunisia">🇹🇳 Tunisia</option>
+  <option value="UAE">🇦🇪 UAE</option>
+  <option value="Egypt">🇪🇬 Egypt</option>
+  <option value="Oman">🇴🇲 Oman</option>
+  <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+  <option value="Lebanon">🇱🇧 Lebanon</option>
+  <option value="Qatar">🇶🇦 Qatar</option>
+  <option value="Yemen">🇾🇪 Yemen</option>
+  <option value="Syria">🇸🇾 Syria</option>
+  <option value="Irak">🇮🇶 Irak</option>
+  <option value="Pakistan">🇹🇷 Turkey</option>
+  <option value="Mauritania">🇲🇷 Mauritania</option>
+  <option value="Lybia">🇱🇾 Lybia</option>
+
+
+
+
+  
+</select>
+</div>
+</div>
 
 <div>   
 &nbsp;

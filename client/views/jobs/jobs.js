@@ -15,7 +15,6 @@ Template.jobs.onCreated(function() {
   });
 });
 
-
 Template.jobs.helpers({
 inputAttributes: function() {
   return {'class': 'easy-search-input', 'placeholder': 'Start searching'};
@@ -46,7 +45,13 @@ showmore: function() {
 renderTmpl: () => Template.renderTemplate
 });
 
-
+Template.jobs.events({
+  "change select": function (e) {
+    JobsIndex
+      .getComponentMethods(/* optional name */)
+      .addProps("country", $(e.target).val());
+  },
+});
 
 // On Client
 Template.jobs.helpers({

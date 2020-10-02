@@ -261,6 +261,10 @@ JobsIndex = new EasySearch.Index({
         aggregation
       );
 
+      // filter for the brand if set
+      if (options.search.props.country) {
+        selector.location = options.search.props.country;
+      }
       // modify the selector to only match documents where region equals "New York"
       selector.status = "active";
       return selector;
